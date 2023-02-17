@@ -122,30 +122,79 @@ import './App.css';
 // }
 
 /* Using map() and optimze her to display a list  */
+// class App extends Component {
+//   constructor() {
+//     super();
+
+//     this.state = {
+//       monsters: [
+//         {
+//           id: '12e125e',
+//           name: 'Dragon',
+//         },
+//         {
+//           id: '12e125e210a',
+//           name: 'Hydre',
+//         },
+//         {
+//           id: '12e12',
+//           name: 'Licorne',
+//         },
+//         {
+//           id: '12e125e3',
+//           name: 'Drago',
+//         },
+//       ],
+//     };
+//   }
+
+//   render() {
+//     return (
+//       <div className="App">
+//         {
+//           this.state.monsters.map((monster) => {
+//             return (
+//               <div key={monster.id}>
+//                 <h1>{monster.name}</h1>
+//                 <small>id: {monster.id}</small>
+//               </div>
+//             );
+//           })
+//         }
+//       </div>
+//     );
+//   }
+// }
+
+/* How to fetch API to display name and id in home page */
 class App extends Component {
   constructor() {
     super();
 
+    // Les utilsateurs seront sauvegargés ici
     this.state = {
-      monsters: [
-        {
-          id: '12e125e',
-          name: 'Dragon',
-        },
-        {
-          id: '12e125e210a',
-          name: 'Hydre',
-        },
-        {
-          id: '12e12',
-          name: 'Licorne',
-        },
-        {
-          id: '12e125e3',
-          name: 'Drago',
-        },
-      ],
+      monsters: [],
     };
+  }
+
+  // Comment avoir la liste des utilisateurs (méthode de cycle de vie)
+  componentDidMount() {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then((response) => {
+        // console.log(response);
+        return response.json()
+      })
+      .then((users) => {
+        this.setState(
+          () => {
+            // console.log(users);
+            return { monsters: users };  
+          },
+          () => {
+            console.log(this.state);
+          }
+        )
+      });
   }
 
   render() {
