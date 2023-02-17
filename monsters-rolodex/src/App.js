@@ -27,13 +27,14 @@ import './App.css';
 //   }
 // }
 
-/* Utiliser les variables */
+/* Utiliser les variables, les états et la fusion superficielle */
 class App extends Component {
   constructor() {
     super();
 
     this.state = {
-      name: 'Yves',
+      name: { firstName: 'Yves', lastName: 'TEST' },
+      company: 'Facebook',
     }
   }
 
@@ -42,8 +43,18 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
-          <p> Hi { this.state.name } </p>
-          <button>Change name</button>
+          <p>
+            Hi {this.state.name.firstName} {this.state.name.lastName}, I work
+            at {this.state.company}
+          </p>
+          <button
+            onClick={() => {
+              this.setState({ name: {firstName: 'Guy', lastName: 'BI'} });
+              console.log(this.state);
+            }}
+          >
+            Change name
+          </button>
           <a
             className="App-link"
             href="https://reactjs.org"
