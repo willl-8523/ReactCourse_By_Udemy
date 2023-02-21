@@ -175,10 +175,12 @@ class App extends Component {
     this.state = {
       monsters: [],
     };
+    console.log('Constructor');
   }
 
   // Comment avoir la liste des utilisateurs (méthode de cycle de vie)
   componentDidMount() {
+    console.log('componentDidMount');
     fetch('https://jsonplaceholder.typicode.com/users')
       .then((response) => {
         // console.log(response);
@@ -198,6 +200,7 @@ class App extends Component {
   }
 
   render() {
+    console.log('render');
     return (
       <div className="App">
         {
