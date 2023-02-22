@@ -174,13 +174,14 @@ class App extends Component {
     // Les utilsateurs seront sauvegargés ici
     this.state = {
       monsters: [],
+      inputLower: ''
     };
-    console.log('Constructor');
+    // console.log('Constructor');
   }
 
   // Comment avoir la liste des utilisateurs (méthode de cycle de vie)
   componentDidMount() {
-    console.log('componentDidMount');
+    // console.log('componentDidMount');
     fetch('https://jsonplaceholder.typicode.com/users')
       .then((response) => {
         // console.log(response);
@@ -193,26 +194,44 @@ class App extends Component {
             return { monsters: users };  
           },
           () => {
-            console.log(this.state);
+            // console.log(this.state);
           }
         )
       });
   }
 
   render() {
-    console.log('render');
+    // console.log('render');
+    const filterMonsters = this.state.monsters.filter((monster) => {
+      const monsterLower = monster.name.toLowerCase();
+      
+      return monsterLower.includes(this.state.inputLower);
+    });
+    
     return (
       <div className="App">
-        {
-          this.state.monsters.map((monster) => {
-            return (
-              <div key={monster.id}>
-                <h1>{monster.name}</h1>
-                <small>id: {monster.id}</small>
-              </div>
-            );
-          })
-        }
+        <input
+          className="search-box"
+          type="search"
+          placeholder="Search monsters"
+          onChange={(e) => {
+            const inputLower = e.target.value.toLowerCase();
+
+            this.setState(() => {
+              // return { inputLower };
+              return { inputLower: inputLower };
+            });
+          }}
+        />
+
+        { filterMonsters.map((monster) => {
+          return (
+            <div key={monster.id}>
+              <h1>{monster.name}</h1>
+              <small>id: {monster.id}</small>
+            </div>
+          );
+        })}
       </div>
     );
   }
