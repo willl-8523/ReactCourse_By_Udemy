@@ -226,10 +226,10 @@ class App extends Component {
           className="search-box"
           type="search"
           placeholder="Search monsters"
-          onChange={ onSearchChange }
+          onChange={onSearchChange}
         />
 
-      {/*  { filterMonsters.map((monster) => {
+        {/*  { filterMonsters.map((monster) => {
           return (
             <div key={monster.id}>
               <h1>{monster.name}</h1>
@@ -237,8 +237,8 @@ class App extends Component {
             </div>
           );
         })} */}
-        
-        <CardList />
+
+        <CardList monsters={ filterMonsters } />
       </div>
     );
   }
