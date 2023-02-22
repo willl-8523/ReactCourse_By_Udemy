@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-// import logo from './logo.svg';
+import CardList from "./components/card-list/card-list.component";
 import './App.css';
 
 /* Transformer un composant fonctionnel en composant de classe */
@@ -207,7 +207,7 @@ class App extends Component {
       // return { inputLower };
       return { inputLower: inputLower };
     });
-  }
+  } 
 
   render() {
     // console.log('render');
@@ -229,14 +229,16 @@ class App extends Component {
           onChange={ onSearchChange }
         />
 
-        { filterMonsters.map((monster) => {
+      {/*  { filterMonsters.map((monster) => {
           return (
             <div key={monster.id}>
               <h1>{monster.name}</h1>
               <small>id: {monster.id}</small>
             </div>
           );
-        })}
+        })} */}
+        
+        <CardList />
       </div>
     );
   }
