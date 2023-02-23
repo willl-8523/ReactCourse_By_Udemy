@@ -1,6 +1,7 @@
 import { Component } from "react";
 
 import CardList from "./components/card-list/card-list.component";
+import SearchBox from "./components/search-box/search-box.component";
 import './App.css';
 
 /* Transformer un composant fonctionnel en composant de classe */
@@ -174,7 +175,7 @@ class App extends Component {
     // Les utilsateurs seront sauvegargés ici
     this.state = {
       monsters: [],
-      inputLower: ''
+      inputLower: '',
     };
     // console.log('Constructor');
   }
@@ -185,18 +186,18 @@ class App extends Component {
     fetch('https://jsonplaceholder.typicode.com/users')
       .then((response) => {
         // console.log(response);
-        return response.json()
+        return response.json();
       })
       .then((users) => {
         this.setState(
           () => {
             // console.log(users);
-            return { monsters: users };  
+            return { monsters: users };
           },
           () => {
             // console.log(this.state);
           }
-        )
+        );
       });
   }
 
@@ -207,7 +208,7 @@ class App extends Component {
       // return { inputLower };
       return { inputLower: inputLower };
     });
-  } 
+  };
 
   render() {
     // console.log('render');
@@ -216,29 +217,19 @@ class App extends Component {
 
     const filterMonsters = monsters.filter((monster) => {
       const monsterLower = monster.name.toLowerCase();
-      
+
       return monsterLower.includes(inputLower);
     });
-    
+
     return (
       <div className="App">
-        <input
-          className="search-box"
-          type="search"
-          placeholder="Search monsters"
-          onChange={onSearchChange}
+        <SearchBox
+          className={'search-box'}
+          placeholder={'Search monsters'}
+          onSearchChangeHandler={onSearchChange}
         />
 
-        {/*  { filterMonsters.map((monster) => {
-          return (
-            <div key={monster.id}>
-              <h1>{monster.name}</h1>
-              <small>id: {monster.id}</small>
-            </div>
-          );
-        })} */}
-
-        <CardList monsters={ filterMonsters } />
+        <CardList monsters={filterMonsters} />
       </div>
     );
   }
