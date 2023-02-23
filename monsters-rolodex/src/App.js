@@ -1,6 +1,7 @@
-import { Component } from "react";
+// import { Component } from "react";
 
-import CardList from "./components/card-list/card-list.component";
+// import CardList from "./components/card-list/card-list.component";
+// import SearchBox from "./components/search-box/search-box.component";
 import './App.css';
 
 /* Transformer un composant fonctionnel en composant de classe */
@@ -167,81 +168,95 @@ import './App.css';
 // }
 
 /* How to fetch API to display name and id in home page */
-class App extends Component {
-  constructor() {
-    super();
+// class App extends Component {
+//   constructor() {
+//     super();
 
-    // Les utilsateurs seront sauvegargés ici
-    this.state = {
-      monsters: [],
-      inputLower: ''
-    };
-    // console.log('Constructor');
-  }
+//     // Les utilsateurs seront sauvegargés ici
+//     this.state = {
+//       monsters: [],
+//       inputLower: '',
+//     };
+//     // console.log('Constructor');
+//   }
 
-  // Comment avoir la liste des utilisateurs (méthode de cycle de vie)
-  componentDidMount() {
-    // console.log('componentDidMount');
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then((response) => {
-        // console.log(response);
-        return response.json()
-      })
-      .then((users) => {
-        this.setState(
-          () => {
-            // console.log(users);
-            return { monsters: users };  
-          },
-          () => {
-            // console.log(this.state);
-          }
-        )
-      });
-  }
+//   /* Comment avoir la liste des utilisateurs (méthode de cycle de vie) 
+//     https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/
+//   */
+//   componentDidMount() {
+//     // console.log('componentDidMount');
+//     fetch('https://jsonplaceholder.typicode.com/users')
+//       .then((response) => {
+//         // console.log(response);
+//         return response.json();
+//       })
+//       .then((users) => {
+//         this.setState(
+//           () => {
+//             // console.log(users);
+//             return { monsters: users };
+//           },
+//           () => {
+//             // console.log(this.state);
+//           }
+//         );
+//       });
+//   }
 
-  onSearchChange = (e) => {
-    const inputLower = e.target.value.toLowerCase();
+//   onSearchChange = (e) => {
+//     const inputLower = e.target.value.toLowerCase();
 
-    this.setState(() => {
-      // return { inputLower };
-      return { inputLower: inputLower };
-    });
-  } 
+//     this.setState(() => {
+//       // return { inputLower };
+//       return { inputLower: inputLower };
+//     });
+//   };
 
-  render() {
-    // console.log('render');
-    const { monsters, inputLower } = this.state;
-    const { onSearchChange } = this;
+//   render() {
+//     // console.log('render');
+//     const { monsters, inputLower } = this.state;
+//     const { onSearchChange } = this;
 
-    const filterMonsters = monsters.filter((monster) => {
-      const monsterLower = monster.name.toLowerCase();
-      
-      return monsterLower.includes(inputLower);
-    });
-    
-    return (
-      <div className="App">
-        <input
-          className="search-box"
-          type="search"
-          placeholder="Search monsters"
-          onChange={onSearchChange}
+//     const filterMonsters = monsters.filter((monster) => {
+//       const monsterLower = monster.name.toLowerCase();
+
+//       return monsterLower.includes(inputLower);
+//     });
+
+//     return (
+//       <div className="App">
+//         <h1 className="app-title">Monster Rolodex</h1>
+
+//         <SearchBox
+//           className={'monsters-search-box'}
+//           placeholder={'Search monsters'}
+//           onSearchChangeHandler={onSearchChange}
+//         />
+
+//         <CardList monsters={filterMonsters} />
+//       </div>
+//     );
+//   }
+// }
+
+/* Composant fonctionnel */
+const App = () => {
+
+  return(
+    <div className="App">
+      <h1 className="app-title">Monster Rolodex</h1>
+
+      {/* 
+        <SearchBox
+          className={'monsters-search-box'}
+          placeholder={'Search monsters'}
+          onSearchChangeHandler={onSearchChange}
         />
 
-        {/*  { filterMonsters.map((monster) => {
-          return (
-            <div key={monster.id}>
-              <h1>{monster.name}</h1>
-              <small>id: {monster.id}</small>
-            </div>
-          );
-        })} */}
-
-        <CardList monsters={ filterMonsters } />
-      </div>
-    );
-  }
+        <CardList monsters={filterMonsters} />
+      */}
+    </div>
+  );
 }
 
 export default App;
