@@ -16,6 +16,7 @@ class Card extends Component {
             />
             <h2> {name} </h2>
             <p>{email}</p>
+            <small>id: {id}</small>
         </>
     );
   }
