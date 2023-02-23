@@ -7,7 +7,7 @@ class CardList extends Component {
       // console.log('render from cardList');
       const { monsters } = this.props;
       return (
-        <div>
+        <div className='card-list'>
           {monsters.map((monster) => (
             <div key={monster.id}>
               <h1> {monster.name} </h1>
