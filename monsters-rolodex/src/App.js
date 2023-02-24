@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 // import { Component } from "react";
 
-// import CardList from "./components/card-list/card-list.component";
+import CardList from "./components/card-list/card-list.component";
 import SearchBox from "./components/search-box/search-box.component";
 import './App.css';
 
@@ -242,12 +242,38 @@ import './App.css';
 
 /* Composant fonctionnel */
 const App = () => {
+  console.log('render');
   const [inputLower, setInputLower] = useState('');
-  console.log({inputLower});
+  const [monsters, setMonsters] = useState([]);
+  const [filterMonsters, setFilterMonsters] = useState(monsters);
 
+  /* -> useEffect s'execute chaque fois que la valeur dans [] est modifiée 
+     -> si [] est vide => useEffect ne s'execute que une fois
+  */
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then((response) => {
+      // console.log(response);
+      return response.json();
+    })
+    .then((users) => {
+      setMonsters(users); // COmme users vient de l'exterieur (API) de notre navigateur, il va nous donner un tableau different en memoire
+    }); 
+  }, []);
+  
+  useEffect(() => {
+    const newFilterMonsters = monsters.filter((monster) => {
+      const monsterLower = monster.name.toLowerCase();
+
+      return monsterLower.includes(inputLower);
+    });
+
+    setFilterMonsters(newFilterMonsters); 
+  }, [monsters, inputLower]);
+  
   const onSearchChange = (e) => {
     const inputLowerCase = e.target.value.toLowerCase();
-
+    
     setInputLower(inputLowerCase);
   };
 
@@ -261,9 +287,7 @@ const App = () => {
         onSearchChangeHandler={onSearchChange}
       />
 
-      {/*
-        <CardList monsters={filterMonsters} />
-      */}
+      <CardList monsters={filterMonsters} />
     </div>
   );
 }
