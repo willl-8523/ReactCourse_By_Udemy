@@ -242,7 +242,7 @@ import './App.css';
 
 /* Composant fonctionnel */
 const App = () => {
-  console.log('render');
+
   const [inputLower, setInputLower] = useState('');
   const [monsters, setMonsters] = useState([]);
   const [filterMonsters, setFilterMonsters] = useState(monsters);
