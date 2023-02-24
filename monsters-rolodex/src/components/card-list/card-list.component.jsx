@@ -13,6 +13,7 @@ class CardList extends Component {
       return (
         <div className="card-list">
           {monsters.map((monster, id) => (
+            
             <div key={id} className="card-container">
               <Card monster={monster} />
             </div>

@@ -1,7 +1,8 @@
+import { useState } from "react";
 // import { Component } from "react";
 
 // import CardList from "./components/card-list/card-list.component";
-// import SearchBox from "./components/search-box/search-box.component";
+import SearchBox from "./components/search-box/search-box.component";
 import './App.css';
 
 /* Transformer un composant fonctionnel en composant de classe */
@@ -241,18 +242,26 @@ import './App.css';
 
 /* Composant fonctionnel */
 const App = () => {
+  const [inputLower, setInputLower] = useState('');
+  console.log({inputLower});
 
-  return(
+  const onSearchChange = (e) => {
+    const inputLowerCase = e.target.value.toLowerCase();
+
+    setInputLower(inputLowerCase);
+  };
+
+  return (
     <div className="App">
       <h1 className="app-title">Monster Rolodex</h1>
 
-      {/* 
-        <SearchBox
-          className={'monsters-search-box'}
-          placeholder={'Search monsters'}
-          onSearchChangeHandler={onSearchChange}
-        />
+      <SearchBox
+        className={'monsters-search-box'}
+        placeholder={'Search monsters'}
+        onSearchChangeHandler={onSearchChange}
+      />
 
+      {/*
         <CardList monsters={filterMonsters} />
       */}
     </div>
