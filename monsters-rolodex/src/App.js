@@ -1,7 +1,8 @@
+import { useState, useEffect } from "react";
 // import { Component } from "react";
 
-// import CardList from "./components/card-list/card-list.component";
-// import SearchBox from "./components/search-box/search-box.component";
+import CardList from "./components/card-list/card-list.component";
+import SearchBox from "./components/search-box/search-box.component";
 import './App.css';
 
 /* Transformer un composant fonctionnel en composant de classe */
@@ -242,19 +243,53 @@ import './App.css';
 /* Composant fonctionnel */
 const App = () => {
 
-  return(
+  const [inputLower, setInputLower] = useState('');
+  const [monsters, setMonsters] = useState([]);
+  const [filterMonsters, setFilterMonsters] = useState(monsters);
+
+  console.log('rendered');
+  /*
+     -> useEffect s'execute chaque fois que la valeur dans [] est modifiée 
+     -> si [] est vide => useEffect ne s'execute que une fois
+  */
+  useEffect(() => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+    .then((response) => {
+      // console.log(response);
+      return response.json();
+    })
+    .then((users) => {
+      setMonsters(users); // Comme users vient de l'exterieur (API) de notre navigateur, il va nous donner un tableau different en memoire
+    }); 
+  }, []);
+  
+  useEffect(() => {
+    const newFilterMonsters = monsters.filter((monster) => {
+      const monsterLower = monster.name.toLowerCase();
+
+      return monsterLower.includes(inputLower);
+    });
+
+    setFilterMonsters(newFilterMonsters); 
+  }, [monsters, inputLower]);
+  
+  const onSearchChange = (e) => {
+    const inputLowerCase = e.target.value.toLowerCase();
+    
+    setInputLower(inputLowerCase);
+  };
+
+  return (
     <div className="App">
       <h1 className="app-title">Monster Rolodex</h1>
 
-      {/* 
-        <SearchBox
-          className={'monsters-search-box'}
-          placeholder={'Search monsters'}
-          onSearchChangeHandler={onSearchChange}
-        />
+      <SearchBox
+        className={'monsters-search-box'}
+        placeholder={'Search monsters'}
+        onSearchChangeHandler={onSearchChange}
+      />
 
-        <CardList monsters={filterMonsters} />
-      */}
+      <CardList monsters={filterMonsters} />
     </div>
   );
 }
