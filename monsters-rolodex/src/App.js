@@ -247,7 +247,9 @@ const App = () => {
   const [monsters, setMonsters] = useState([]);
   const [filterMonsters, setFilterMonsters] = useState(monsters);
 
-  /* -> useEffect s'execute chaque fois que la valeur dans [] est modifiée 
+  console.log('rendered');
+  /*
+     -> useEffect s'execute chaque fois que la valeur dans [] est modifiée 
      -> si [] est vide => useEffect ne s'execute que une fois
   */
   useEffect(() => {
@@ -257,7 +259,7 @@ const App = () => {
       return response.json();
     })
     .then((users) => {
-      setMonsters(users); // COmme users vient de l'exterieur (API) de notre navigateur, il va nous donner un tableau different en memoire
+      setMonsters(users); // Comme users vient de l'exterieur (API) de notre navigateur, il va nous donner un tableau different en memoire
     }); 
   }, []);
   
