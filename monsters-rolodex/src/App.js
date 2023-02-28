@@ -251,7 +251,6 @@ const App = () => {
   */
   const [inputLower, setInputLower] = useState('');
   const [monsters, setMonsters] = useState([]);
-  const [title, setTitle] = useState('');
   const [filterMonsters, setFilterMonsters] = useState(monsters);
 
   // console.log('rendered');
@@ -286,28 +285,14 @@ const App = () => {
     setInputLower(inputLowerCase);
   };
 
-  const onTitleChange = (e) => {
-    const inputLowerCase = e.target.value.toLowerCase();
-
-    setTitle(inputLowerCase);
-  };
-
   return (
     <div className="App">
-      <h1 className="app-title">{title}</h1>
+      <h1 className="app-title">Monsters Rodolex</h1>
 
       <SearchBox
         className={'monsters-search-box'}
         placeholder={'Search monsters'}
         onSearchChangeHandler={onSearchChange}
-      />
-
-      <br />
- 
-      <SearchBox
-        className={'title-search-box'}
-        placeholder={'Set title'}
-        onSearchChangeHandler={onTitleChange}
       />
 
       <CardList monsters={filterMonsters} />
