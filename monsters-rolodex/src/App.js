@@ -243,11 +243,18 @@ import './App.css';
 /* Composant fonctionnel */
 const App = () => {
 
+  /* 
+    Pour debugger le composant sur lequel on agit:
+      -> Dans la console cliquez sur le 3 points
+      -> Cliquer sur Autres outils ensuite sur Affichage
+      -> Une autre fenêtre s'ouvre, cochez Clignotement de la peinture
+  */
   const [inputLower, setInputLower] = useState('');
   const [monsters, setMonsters] = useState([]);
+  const [title, setTitle] = useState('');
   const [filterMonsters, setFilterMonsters] = useState(monsters);
 
-  console.log('rendered');
+  // console.log('rendered');
   /*
      -> useEffect s'execute chaque fois que la valeur dans [] est modifiée 
      -> si [] est vide => useEffect ne s'execute que une fois
@@ -279,14 +286,28 @@ const App = () => {
     setInputLower(inputLowerCase);
   };
 
+  const onTitleChange = (e) => {
+    const inputLowerCase = e.target.value.toLowerCase();
+
+    setTitle(inputLowerCase);
+  };
+
   return (
     <div className="App">
-      <h1 className="app-title">Monster Rolodex</h1>
+      <h1 className="app-title">{title}</h1>
 
       <SearchBox
         className={'monsters-search-box'}
         placeholder={'Search monsters'}
         onSearchChangeHandler={onSearchChange}
+      />
+
+      <br />
+ 
+      <SearchBox
+        className={'title-search-box'}
+        placeholder={'Set title'}
+        onSearchChangeHandler={onTitleChange}
       />
 
       <CardList monsters={filterMonsters} />
